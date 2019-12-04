@@ -1,0 +1,89 @@
+body {
+    text-align: center;
+    background: #202225;
+    color: #dcddde;
+    font-family: Arial;
+    font-size: 10pt;
+}
+
+form {
+    display: inline-block;
+    width: auto;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    background: #2f3136;
+    border-radius: 10px;
+    box-shadow: 1px 1px 11px 0px #2a2c31;
+}
+
+input, textarea, select, label {
+    color: #dcddde;
+    font-family: Arial;
+    font-size: 10pt;
+}
+
+input, textarea, select {
+    background-color: #36393f;
+    margin: 5px;
+}
+
+.error {
+    color: #db3b30;
+}
+
+.short {
+    width: 110px;
+}
+
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+[data-tooltip]:before {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-bottom: 5px;
+    margin-left: -80px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #484b52;
+    color: #dcddde;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 10pt;
+    line-height: 1.2;
+}
+
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #484b52;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    opacity: 1;
+}

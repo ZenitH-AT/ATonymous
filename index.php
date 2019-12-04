@@ -86,7 +86,7 @@
         } ?>
     </form> <?php
 
-    if (isset($_POST["send"])) {
+    if (isset($_POST["send"]) && $enabled) {
         if (strlen(trim($_POST["message"])) > 0) {  
             //Sending message (message is automatically sent as an embed if it contains "@")
             if (isset($_POST["signature"])) {

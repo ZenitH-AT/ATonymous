@@ -11,7 +11,7 @@
 <body> <?php
     /* Getting data from MySQL database -- START */
 
-    $conn = @mysqli_connect("localhost", "root", "", "atonymous") or die("Could not connect to database.");
+    $conn = @mysqli_connect("hostname", "username", "password", "database") or die("Could not connect to database.");
 
     $password = "";
 

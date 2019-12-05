@@ -67,9 +67,9 @@
         $_GET["signature"] = 0;
     } 
     
-    $avatartooltip = "Make sure that the URL is correct, or else your messages won't send. GIFs don't work.";
+    $avatartooltip = "Make sure that the URL is correct, or else your messages won't send.";
 
-    $signaturetoolip = "Embeds a signature into your message based on your unique session ID. 
+    $signaturetoolip = "Appends a signature to your message based on your unique session ID. 
                         To generate a new signature, untick the checkbox and submit this form 
                         (e.g. send a blank message), then you may tick it again."; ?>
 

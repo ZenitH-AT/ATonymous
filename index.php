@@ -11,8 +11,9 @@
 <body> <?php
     /* Getting data from MySQL database -- START */
 
-    $conn = @mysqli_connect("hostname", "username", "password", "database") or die("Could not connect to database.");
+    $conn = @mysqli_connect("localhost", "root", "", "atonymous") or die("Could not connect to database.");
 
+    //Password for disabling/enabling message sending
     $password = "";
 
     $select = mysqli_query($conn, "SELECT * FROM settings WHERE setting = 'password';");
@@ -21,7 +22,8 @@
         $password = $row["value"];
     }
 
-    $enabled = false;
+    //Current message sending status
+    $enabled = 0;
 
     $select = mysqli_query($conn, "SELECT * FROM settings WHERE setting = 'enabled';");
 
@@ -29,6 +31,7 @@
         $enabled = intval($row["value"]);
     }
 
+    //Channel names and their respective webook URLs
     $names = array();
     $webhooks = array();
 
@@ -37,6 +40,15 @@
     while ($row = $select->fetch_assoc()) {
         array_push($names, $row["name"]);
         array_push($webhooks, $row["webhook"]);
+    }
+    
+    //Pattern for automatically embedding the message matching content is posted
+    $pattern = "/@|http/";
+
+    $select = mysqli_query($conn, "SELECT * FROM settings WHERE setting = 'pattern';");
+
+    while ($row = $select->fetch_assoc()) {
+        $pattern = $row["value"];
     }
 
     /* Getting data from MySQL database -- END */
@@ -88,10 +100,9 @@
 
     if (isset($_POST["send"]) && $enabled) {
         if (strlen(trim($_POST["message"])) > 0) {  
-            //Sending message (message is automatically sent as an embed if it contains "@")
             if (isset($_POST["signature"])) {
                 //message embedded; signature shown
-                if (strpos($_POST["message"], "@") !== false || isset($_POST["embed"])) {
+                if (preg_match($pattern, $_POST["message"]) || isset($_POST["embed"])) {
                     $hookobject = json_encode([ 
                         "username" => $_POST["username"], 
                         "avatar_url" => $_POST["avatar"], 
@@ -118,7 +129,7 @@
                 }
             } else {
                 //message embedded; signature not shown
-                if (strpos($_POST["message"], "@") !== false || isset($_POST["embed"])) {
+                if (preg_match($pattern, $_POST["message"]) || isset($_POST["embed"])) {
                     $hookobject = json_encode([
                         "username" => $_POST["username"], 
                         "avatar_url" => $_POST["avatar"], 
